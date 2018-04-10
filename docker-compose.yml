@@ -51,23 +51,20 @@ services:
       - "MYSQL_USER=root"
       - "MYSQL_PASSWORD=secret"
       - "MYSQL_DATABASE=app"
-    ports:
-        - "33061:3306"
   redis:
     image: redis:3.0
     ports:
       - "63791:6379"
   node:
-    build:
-      context: ./
-      dockerfile: docker/node.docker
+    image: node
     volumes:
-      - "./:/var/www"
+          - ./:/var/www
+    working_dir: /var/www
     tty: true
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     links:
-      - mysql:app
+      - mysql
     ports:
       - "8181:80"
     environment:

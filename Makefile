@@ -12,4 +12,24 @@ v-php:
 
 perm:
 	sudo chown ${USER}:${USER} docker -R
+	sudo chown ${USER}:${USER} storage -R
+	sudo chown ${USER}:${USER} bootstrap/cache -R
+	sudo chown ${USER}:${USER} node_modules -R
+	sudo chown ${USER}:${USER} resources -R
+	sudo chmod 777 resources -R
+
+test:
+	docker-compose exec php-cli vendor/bin/phpunit
+
+assets-install:
+	docker exec app_node_1 yarn install
+
+assets-rebuild:
+	docker-compose exec npm rebuild node-sass --force
+
+assets-dev:
+	docker exec app_node_1 yarn run dev
+
+assets-watch:
+	docker exec app_node_1 yarn run watch
 	
