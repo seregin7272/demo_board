@@ -2,24 +2,19 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
+use App\Http\Requests\Auth\RegisterRequest;
+use App\Entity\User\User;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Foundation\Auth\RegistersUsers;
-use Mail;
-use Illuminate\Http\Request;
-use Illuminate\Support\Str;
-use Illuminate\Auth\Events\Registered;
+use App\UseCases\Auth\RegisterService;
+
 class RegisterController extends Controller
 {
+    private $service;
 
-    //use RegistersUsers;
-
-    protected $redirectTo = '/home';
-
-    public function __construct()
+    public function __construct(RegisterService $service)
     {
         $this->middleware('guest');
+        $this->service = $service;
     }
 
     public function showRegistrationForm()
@@ -27,45 +22,12 @@ class RegisterController extends Controller
         return view('auth.register');
     }
 
-
-    protected function validator(array $data)
+    public function register(RegisterRequest $request)
     {
-        return Validator::make($data, [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
-        ]);
-    }
+        $this->service->register($request);
 
-    protected function create(array $data)
-    {
-        $user = User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-            'verify_token' => Str::random(16),
-            'status' => User::STATUS_WAIT
-        ]);
-
-        Mail::to($user->email)->send(new \App\Mail\VerifyMail($user));
-
-        return $user;
-    }
-
-
-    /*
-    protected function registered(Request $request, $user)
-    {
-        return redirect()->route('login')->with('sussces', 'На почту выслана ссылка для подтерждения электронной почты');
-    }*/
-
-
-
-    public function register(Request $request)
-    {
-        $this->validator($request->all())->validate();
-        event(new Registered($user = $this->create($request->all())));
-        return redirect()->route('login')->with('sussces', 'На почту выслана ссылка для подтерждения электронной почты');
+        return redirect()->route('login')
+            ->with('success', 'Check your email and click on the link to verify.');
     }
 
     public function verify($token)
@@ -75,38 +37,11 @@ class RegisterController extends Controller
                 ->with('error', 'Sorry your link cannot be identified.');
         }
 
-        if ($user->status !== User::STATUS_WAIT) {
-            return redirect()->route('login')
-                ->with('error', 'Your email is already verified.');
+        try {
+            $this->service->verify($user->id);
+            return redirect()->route('login')->with('success', 'Your e-mail is verified. You can now login.');
+        } catch (\DomainException $e) {
+            return redirect()->route('login')->with('error', $e->getMessage());
         }
-
-        $user->status = User::STATUS_ACTIVE;
-        $user->verify_token = null;
-        $user->save();
-
-        return redirect()->route('login')
-            ->with('success', 'Your e-mail is verified. You can now login.');
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -5,6 +5,27 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+
+/**
+ * @property int $id
+ * @property string $name
+ * @property string $last_name
+ * @property string $email
+ * @property string $phone
+ * @property bool $phone_verified
+ * @property string $password
+ * @property string $verify_token
+ * @property string $phone_verify_token
+ * @property Carbon $phone_verify_token_expire
+ * @property boolean $phone_auth
+ * @property string $role
+ * @property string $status
+ *
+ * @property Network[] networks
+ *
+ * @method Builder byNetwork(string $network, string $identity)
+ */
+
 class User extends Authenticatable
 {
     use Notifiable;
