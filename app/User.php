@@ -7,6 +7,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 
 /**
+ * App\User
+ *
  * @property int $id
  * @property string $name
  * @property string $last_name
@@ -20,10 +22,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property boolean $phone_auth
  * @property string $role
  * @property string $status
- *
  * @property Network[] networks
- *
  * @method Builder byNetwork(string $network, string $identity)
+ * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
+ * @mixin \Eloquent
  */
 
 class User extends Authenticatable
