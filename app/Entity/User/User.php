@@ -21,6 +21,7 @@ use Carbon\Carbon;
  * @property Carbon $phone_verify_token_expire
  * @property string $role
  * @property string $status
+ * @property bool $phone_auth
  */
 class User extends Authenticatable
 {
@@ -43,6 +44,7 @@ class User extends Authenticatable
     protected $casts = [
         'phone_verified' => 'boolean',
         'phone_verify_token_expire' => 'datetime',
+        'phone_auth' => 'boolean'
     ];
 
     public static function register(string $name, string $email, string $password): self
@@ -148,5 +150,27 @@ class User extends Authenticatable
     public function isPhoneVerified(): bool
     {
         return $this->phone_verified;
+    }
+
+
+    public function enablePhoneAuth(): void
+    {
+        if (!empty($this->phone) && !$this->isPhoneVerified()) {
+            throw new \DomainException('Phone number is empty.');
+        }
+        $this->phone_auth = true;
+        $this->saveOrFail();
+    }
+
+    public function disablePhoneAuth(): void
+    {
+        $this->phone_auth = false;
+        $this->saveOrFail();
+    }
+
+
+    public function isPhoneAuthEnabled(): bool
+    {
+        return (bool)$this->phone_auth;
     }
 }
