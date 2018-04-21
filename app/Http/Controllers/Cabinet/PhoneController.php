@@ -2,18 +2,24 @@
 
 namespace App\Http\Controllers\Cabinet;
 
+use App\Services\Sms\SmsSender;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
 use Carbon\Carbon;
+
 class PhoneController extends Controller
 {
-    public function request(Request $request)
+
+    public function request(Request $request, SmsSender $sms)
     {
         $user = Auth::user();
 
+
         try {
             $token = $user->requestPhoneVerification(Carbon::now());
+           // dd($sms);
+            $sms->send('79222693740', $token);
         } catch (\DomainException $e) {
             $request->session()->flash('error', $e->getMessage());
         }
