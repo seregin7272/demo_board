@@ -29,7 +29,7 @@ class ProfileController extends Controller
         ]);
 
         $user = Auth::user();
-        $user->update($request->only('name', 'last_name'));
+        $user->update($request->only('name', 'last_name' ,'phone'));
 
         return redirect()->route('cabinet.profile.home');
     }
