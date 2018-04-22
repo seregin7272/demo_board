@@ -12,3 +12,4 @@ yarn-error.log
 .env
 /docker/mysql
 /docker/nginx
+artisan_comand.txt
