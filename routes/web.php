@@ -21,6 +21,8 @@ Route::group(
 
         Route::get('/', 'HomeController@index')->name('home');
 
+        Route::resource('adverts', 'Adverts\AdvertController');
+
         Route::group([
             'prefix' => 'profile',
             'as' => 'profile.',

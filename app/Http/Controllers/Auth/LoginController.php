@@ -83,7 +83,7 @@ class LoginController extends Controller
     public function phone()
     {
 
-         dump(session('auth'));
+         //dump(session('auth'));
 
         return view('auth.phone');
     }
