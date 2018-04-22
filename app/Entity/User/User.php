@@ -97,10 +97,18 @@ class User extends Authenticatable
         return $this->role === self::ROLE_ADMIN;
     }
 
+    public static function rolesList(): array
+    {
+        return [
+            self::ROLE_USER => 'User',
+            self::ROLE_ADMIN => 'Admin',
+        ];
+    }
+
 
     public function changeRole($role): void
     {
-        if (!\in_array($role, [self::ROLE_USER, self::ROLE_ADMIN], true)) {
+        if (!array_key_exists($role, self::rolesList())) {
             throw new \InvalidArgumentException('Undefined role "' . $role . '"');
         }
         if ($this->role === $role) {
@@ -178,4 +186,5 @@ class User extends Authenticatable
     {
         return !empty($this->name) && !empty($this->last_name) && $this->isPhoneVerified();
     }
+
 }
