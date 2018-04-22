@@ -1,7 +1,7 @@
 <?php
 
 use Faker\Generator as Faker;
-use App\Entity\Advert\Category;
+use App\Entity\Adverts\Category;
 
 $factory->define(Category::class, function (Faker $faker) {
     return [
