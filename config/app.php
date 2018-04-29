@@ -178,6 +178,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\SmsServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
+        App\Providers\CacheServiceProvider::class,
 
     ],
 
