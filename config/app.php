@@ -179,6 +179,7 @@ return [
         App\Providers\SmsServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
         App\Providers\CacheServiceProvider::class,
+        App\Providers\SearchServiceProvider::class,
 
     ],
 

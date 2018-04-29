@@ -22,6 +22,7 @@ services:
     links: 
       - mysql
       - redis
+      - elasticsearch
     environment:
       - "DB_PORT=3306"
       - "DB_HOST=mysql"
@@ -36,6 +37,7 @@ services:
     links: 
       - mysql
       - redis
+      - elasticsearch
     environment:
       - "DB_PORT=3306"
       - "DB_HOST=mysql"
@@ -74,6 +76,19 @@ services:
       - "PMA_PORT=3306"
     volumes:
       - "./docker/mysql:/var/lib/mysql"
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.2.4
+    environment:
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - ./docker/elasticsearch:/usr/share/elasticsearch/data
+    ports:
+      - 9201:9200
 
 
 

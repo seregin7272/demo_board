@@ -1,4 +1,4 @@
-docker-up:
+docker-up: memory 
 	docker-compose up -d
 
 docker-down:
@@ -11,6 +11,8 @@ v-php:
 	docker exec app_php-cli_1 php -v
 
 perm:
+	sudo chown ${USER}:${USER} docker -R
+	sudo chown ${USER}:${USER} node_modules -R
 	sudo chgrp -R www-data storage bootstrap/cache
 	sudo chmod -R ug+rwx storage bootstrap/cache
 	sudo chmod 777 resources -R
@@ -40,3 +42,6 @@ assets-watch:
 
 m-db:
 	docker-compose exec php-cli php artisan migrate
+
+memory: perm
+	sudo sysctl -w vm.max_map_count=262144

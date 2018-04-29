@@ -104,6 +104,17 @@
 
             <p>Address: {{ $advert->address }}</p>
 
+            <table class="table table-bordered">
+                <tbody>
+                @foreach ($advert->category->allAttributes() as $attribute)
+                    <tr>
+                        <th>{{ $attribute->name }}</th>
+                        <td>{{ $advert->getValue($attribute->id) }}</td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+
             <div style="margin: 20px 0; border: 1px solid #ddd">
 
                 <div id="map" style="width: 100%; height: 250px"></div>
