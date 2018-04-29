@@ -37,3 +37,6 @@ assets-dev:
 
 assets-watch:
 	docker exec app_node_1 yarn run watch
+
+m-db:
+	docker-compose exec php-cli php artisan migrate

@@ -27,6 +27,8 @@ Route::group([
     Route::post('/show/{advert}/phone', 'AdvertController@phone')->name('phone');
 
     Route::get('/{adverts_path?}', 'AdvertController@index')->name('index')->where('adverts_path', '.+');
+    Route::post('/show/{advert}/favorites', 'FavoriteController@add')->name('favorites');
+    Route::delete('/show/{advert}/favorites', 'FavoriteController@remove');
     //Route::get('/all/{category?}', 'AdvertController@index')->name('index.all');
     //Route::get('/{region?}/{category?}', 'AdvertController@index')->name('index');
 });
@@ -47,6 +49,9 @@ Route::group(
         Route::get('/', 'HomeController@index')->name('home');
 
         Route::resource('adverts', 'Adverts\AdvertController');
+
+        Route::get('favorites', 'FavoriteController@index')->name('favorites.index');
+        Route::delete('favorites/{advert}', 'FavoriteController@remove')->name('favorites.remove');
 
         Route::group([
             'prefix' => 'profile',
