@@ -3,6 +3,8 @@
 
 Route::get('/', 'HomeController@index')->name('home');
 
+Route::get('/test', 'TestController@index');
+
 Auth::routes();
 
 Route::get('/login/phone', 'Auth\LoginController@phone')->name('login.phone');
@@ -24,8 +26,9 @@ Route::group([
     Route::get('/show/{advert}', 'AdvertController@show')->name('show');
     Route::post('/show/{advert}/phone', 'AdvertController@phone')->name('phone');
 
-    Route::get('/all/{category?}', 'AdvertController@index')->name('index.all');
-    Route::get('/{region?}/{category?}', 'AdvertController@index')->name('index');
+    Route::get('/{adverts_path?}', 'AdvertController@index')->name('index')->where('adverts_path', '.+');
+    //Route::get('/all/{category?}', 'AdvertController@index')->name('index.all');
+    //Route::get('/{region?}/{category?}', 'AdvertController@index')->name('index');
 });
 
 

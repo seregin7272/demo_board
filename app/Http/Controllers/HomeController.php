@@ -12,6 +12,8 @@ class HomeController extends Controller
     {
         $regions = Region::roots()->orderBy('name')->getModels();
 
+        //dump($regions);
+
         $categories = Category::whereIsRoot()->defaultOrder()->getModels();
 
         return view('home', compact('regions', 'categories'));
