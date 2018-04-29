@@ -11,6 +11,11 @@ v-php:
 	docker exec app_php-cli_1 php -v
 
 perm:
+	sudo chgrp -R www-data storage bootstrap/cache
+	sudo chmod -R ug+rwx storage bootstrap/cache
+	sudo chmod 777 resources -R
+
+old-perm:
 	sudo chown ${USER}:${USER} docker -R
 	sudo chown ${USER}:${USER} storage -R
 	sudo chown ${USER}:${USER} bootstrap/cache -R
@@ -32,4 +37,3 @@ assets-dev:
 
 assets-watch:
 	docker exec app_node_1 yarn run watch
-	
