@@ -28,6 +28,7 @@ services:
       - "DB_HOST=mysql"
       - "REDIS_PORT=6379"
       - "REDIS_HOST=redis"
+      - "ELASTICSEARCH_HOSTS=elasticsearch:9200"
   php-cli: 
     build:
       context: ./
@@ -43,6 +44,7 @@ services:
       - "DB_HOST=mysql"
       - "REDIS_PORT=6379"
       - "REDIS_HOST=redis"
+      - "ELASTICSEARCH_HOSTS=elasticsearch:9200"
     tty: true
   mysql:
     image: mysql:5.7
