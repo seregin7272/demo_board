@@ -7,6 +7,9 @@ Route::get('/test', 'TestController@index');
 
 Auth::routes();
 
+Route::get('/login/{network}', 'Auth\NetworkController@redirect')->name('login.network');
+Route::get('/login/{network}/callback', 'Auth\NetworkController@callback')->name('login.callback');
+
 Route::get('/login/phone', 'Auth\LoginController@phone')->name('login.phone');
 Route::post('/login/phone', 'Auth\LoginController@verify');
 
