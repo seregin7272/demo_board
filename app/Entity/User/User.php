@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 use App\Entity\Adverts\Advert\Advert;
+use Illuminate\Database\Eloquent\Builder;
 /**
  * App\Entity\User\User
  *
@@ -23,6 +24,10 @@ use App\Entity\Adverts\Advert\Advert;
  * @property string $role
  * @property string $status
  * @property bool $phone_auth
+ *
+ * @property Network[] networks
+ *
+ * @method Builder byNetwork(string $network, string $identity)
  */
 class User extends Authenticatable
 {
@@ -70,6 +75,23 @@ class User extends Authenticatable
             'role' => self::ROLE_USER,
             'status' => self::STATUS_ACTIVE,
         ]);
+    }
+
+    public static function registerByNetwork(string $network, string $identity): self
+    {
+        $user = static::create([
+            'name' => $identity,
+            'email' => null,
+            'password' => null,
+            'verify_token' => null,
+            'role' => self::ROLE_USER,
+            'status' => self::STATUS_ACTIVE,
+        ]);
+        $user->networks()->create([
+            'network' => $network,
+            'identity' => $identity,
+        ]);
+        return $user;
     }
 
     public function isWait(): bool
@@ -219,6 +241,18 @@ class User extends Authenticatable
     public function favorites()
     {
         return $this->belongsToMany(Advert::class, 'advert_favorites', 'user_id', 'advert_id');
+    }
+
+    public function networks()
+    {
+        return $this->hasMany(Network::class, 'user_id', 'id');
+    }
+
+    public function scopeByNetwork(Builder $query, string $network, string $identity): Builder
+    {
+        return $query->whereHas('networks', function(Builder $query) use ($network, $identity) {
+            $query->where('network', $network)->where('identity', $identity);
+        });
     }
 
 }
