@@ -18,6 +18,8 @@ class CategoryController extends Controller
     {
         $categories = Category::defaultOrder()->withDepth()->get();
 
+        //dump(Category::all());
+
         return view('admin.adverts.categories.index', compact('categories'));
     }
 

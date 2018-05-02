@@ -90,6 +90,15 @@
             {{ $adverts->links() }}
         </div>
         <div class="col-md-3">
+            <div
+                    class="banner mb-3"
+                    data-url="{{ route('banner.get') }}"
+                    data-format="240x240"
+                    data-category="{{ $category ? $category->id : '' }}"
+                    data-region="{{ $region ? $region->id : '' }}"
+            ></div>
+        </div>
+        <div class="col-md-3">
             <div style="height: 400px; background: #f6f6f6; border: 1px solid #ddd; margin-bottom: 20px"></div>
             <div style="height: 200px; background: #f6f6f6; border: 1px solid #ddd; margin-bottom: 20px"></div>
         </div>
