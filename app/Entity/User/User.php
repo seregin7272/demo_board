@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use Carbon\Carbon;
 use App\Entity\Adverts\Advert\Advert;
 use Illuminate\Database\Eloquent\Builder;
+use Laravel\Passport\HasApiTokens;
 /**
  * App\Entity\User\User
  *
@@ -31,7 +32,7 @@ use Illuminate\Database\Eloquent\Builder;
  */
 class User extends Authenticatable
 {
-    use Notifiable;
+    use HasApiTokens, Notifiable;
 
     public const STATUS_WAIT = 'wait';
     public const STATUS_ACTIVE = 'active';
