@@ -155,10 +155,17 @@ Route::group(
 
         Route::resource('regions', 'RegionController');
 
+        Route::resource('pages', 'PageController');
+        Route::group(['prefix' => 'pages/{page}', 'as' => 'pages.'], function () {
+            Route::post('/first', 'PageController@first')->name('first');
+            Route::post('/up', 'PageController@up')->name('up');
+            Route::post('/down', 'PageController@down')->name('down');
+            Route::post('/last', 'PageController@last')->name('last');
+        });
+
         Route::group(['prefix' => 'adverts', 'as' => 'adverts.', 'namespace' => 'Adverts'], function () {
 
             Route::resource('categories', 'CategoryController');
-
             Route::group(['prefix' => 'categories/{category}', 'as' => 'categories.'], function () {
                 Route::post('/first', 'CategoryController@first')->name('first');
                 Route::post('/up', 'CategoryController@up')->name('up');
@@ -166,6 +173,7 @@ Route::group(
                 Route::post('/last', 'CategoryController@last')->name('last');
                 Route::resource('attributes', 'AttributeController')->except('index');
             });
+
 
             Route::group(['prefix' => 'adverts', 'as' => 'adverts.'], function () {
                 Route::get('/', 'AdvertController@index')->name('index');
@@ -199,3 +207,5 @@ Route::group(
         });
     }
 );
+
+Route::get('/{page_path}', 'PageController@show')->name('page')->where('page_path', '.+');
