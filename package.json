@@ -17,6 +17,7 @@
         "laravel-mix": "^1.0",
         "lodash": "^4.17.10",
         "summernote": "^0.8.1",
+        "font-awesome": "^4.7.0",
         "vue": "^2.5.7"
     }
 }

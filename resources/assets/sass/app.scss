@@ -1,13 +1,11 @@
 
-// Fonts
-@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
-
 // Variables
 @import "variables";
 
 // Bootstrap
 @import "~bootstrap-sass/assets/stylesheets/bootstrap";
-//@import "~summernote/dist/summernote.css";
+@import "~font-awesome/scss/font-awesome.scss";
+@import "~summernote/dist/summernote.css";
 
 .navbar {
   background-color: #0c64a2;
