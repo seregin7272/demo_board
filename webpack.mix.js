@@ -1,4 +1,5 @@
 let mix = require('laravel-mix');
+let webpack = require('webpack');
 
 /*
  |--------------------------------------------------------------------------
@@ -16,3 +17,9 @@ mix
     .setResourceRoot('build')
     .js('resources/assets/js/app.js', 'js')
     .sass('resources/assets/sass/app.scss', 'css');
+
+mix.webpackConfig({
+    plugins: [
+        new webpack.IgnorePlugin(/^codemirror$/)
+    ]
+});

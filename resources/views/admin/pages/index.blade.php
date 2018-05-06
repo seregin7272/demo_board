@@ -26,19 +26,19 @@
                 <td>
                     <div class="d-flex flex-row">
                         <form method="POST" action="{{ route('admin.pages.first', $page) }}" class="mr-1">
-                            @csrf
+                            {{ csrf_field() }}
                             <button class="btn btn-sm btn-outline-primary"><span class="fa fa-angle-double-up"></span></button>
                         </form>
                         <form method="POST" action="{{ route('admin.pages.up', $page) }}" class="mr-1">
-                            @csrf
+                            {{ csrf_field() }}
                             <button class="btn btn-sm btn-outline-primary"><span class="fa fa-angle-up"></span></button>
                         </form>
                         <form method="POST" action="{{ route('admin.pages.down', $page) }}" class="mr-1">
-                            @csrf
+                            {{ csrf_field() }}
                             <button class="btn btn-sm btn-outline-primary"><span class="fa fa-angle-down"></span></button>
                         </form>
                         <form method="POST" action="{{ route('admin.pages.last', $page) }}" class="mr-1">
-                            @csrf
+                            {{ csrf_field() }}
                             <button class="btn btn-sm btn-outline-primary"><span class="fa fa-angle-double-down"></span></span></button>
                         </form>
                     </div>
