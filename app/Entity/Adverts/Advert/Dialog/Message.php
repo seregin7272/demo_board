@@ -1,21 +1,20 @@
 <?php
 
-namespace App\Entity\Ticket;
+namespace App\Entity\Adverts\Advert\Dialog;
 
 use App\Entity\User\User;
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * @property int $id
- * @property int $user_id
- * @property Carbon $created_at
- * @property Carbon $updated_at
- * @property string $message
+ * $property int $id
+ * $property Carbon $created_at
+ * $property Carbon $updated_at
+ * $property int $user_id
+ * $property string $message
  */
 class Message extends Model
 {
-    protected $table = 'ticket_messages';
+    protected $table = 'advert_dialog_messages';
 
     protected $guarded = ['id'];
 
