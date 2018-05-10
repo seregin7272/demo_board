@@ -8,10 +8,10 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-
-class ModerationPassedNotification extends Notification
+use Illuminate\Queue\SerializesModels;
+class ModerationPassedNotification extends Notification implements ShouldQueue
 {
-    use Queueable;
+    use Queueable, SerializesModels;
 
     private $advert;
 

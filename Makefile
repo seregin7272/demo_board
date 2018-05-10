@@ -49,3 +49,6 @@ m-db:
 
 memory: 
 	sudo sysctl -w vm.max_map_count=262144
+
+queue:
+    docker-compose exec php-cli php artisan queue:work
