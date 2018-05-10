@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use App\Events\Advert\ModerationPassed;
 use App\Listeners\Advert\ModerationPassedListener;
+use App\Listeners\Advert\AdvertChangedListener;
 class EventServiceProvider extends ServiceProvider
 {
     /**
@@ -15,6 +16,7 @@ class EventServiceProvider extends ServiceProvider
      */
     protected $listen = [
         ModerationPassed::class => [
+            AdvertChangedListener::class,
             ModerationPassedListener::class,
         ],
     ];
