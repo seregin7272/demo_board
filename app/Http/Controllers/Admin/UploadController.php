@@ -13,7 +13,12 @@ class UploadController extends Controller
             'file' => 'required|image|mimes:jpg,jpeg,png',
         ]);
 
+
         $file = $request->file('file');
-        return '/storage/' . $file->store('images', 'public');
+        $path = $file->store('images', 'public');
+
+        return Storage::disk('public')->url($path);
+
+
     }
 }

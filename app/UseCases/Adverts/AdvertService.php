@@ -13,6 +13,7 @@ use App\Http\Requests\Adverts\PhotosRequest;
 use App\Http\Requests\Adverts\RejectRequest;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use App\Notifications\Advert\ModerationPassedNotification;
 
 
 class AdvertService
@@ -68,7 +69,7 @@ class AdvertService
         DB::transaction(function () use ($request, $advert) {
             foreach ($request['files'] as $file) {
                 $advert->photos()->create([
-                    'file' => $file->store('adverts')
+                    'file' => $file->store('adverts', 'public')
                 ]);
             }
         });
@@ -97,6 +98,7 @@ class AdvertService
     {
         $advert = $this->getAdvert($id);
         $advert->moderate(Carbon::now());
+        $advert->user->notify(new ModerationPassedNotification($advert));
     }
 
     public function reject($id, RejectRequest $request): void
